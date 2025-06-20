@@ -59,6 +59,7 @@ body {
 }
 .right {
   margin: 16px 0;
+  position: relative;
 }
 .header {
   display: flex;
@@ -136,8 +137,22 @@ body {
   padding: 10px;
   width: 79px;
   cursor: pointer;
+  font-size: 16px;
 }
 .loginbtn:hover {
   font-weight: bold;
-  padding: 10px 14px;
+  font-size: 17px;
+}
+.playbar {
+  position: absolute;
+  bottom: 0;
+  background-color: rgb(139, 193, 139);
+  width: 100%;
+  padding: 12px;
+}
+.songbuttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
