@@ -9,6 +9,7 @@
   </head>
   <body>
     <div class="container flex bg-black">
+      <!-- Left Sidebar -->
       <div class="left">
         <div class="home bg-grey rounded m-1 p-1">
           <div class="logo">
@@ -19,11 +20,19 @@
             <li><img class="invert" src="search.svg" alt="search" />Search</li>
           </ul>
         </div>
+
         <div class="library bg-grey rounded m-1 p-1">
           <div class="heading">
             <img class="invert" src="playlist.svg" alt="playlist" />
             <h2>Your Library</h2>
           </div>
+
+          <div class="songList">
+            <ul>
+              
+            </ul>
+          </div>
+
           <div class="footer">
             <div>
               <a href="https://www.spotify.com/jp/legal/"><span>Legal</span></a>
@@ -57,6 +66,7 @@
         </div>
       </div>
 
+      <!-- Right Content -->
       <div class="right bg-grey rounded">
         <div class="header">
           <div class="nav">
@@ -93,9 +103,10 @@
           </div>
           <div class="buttons">
             <button class="signupbtn">Sign up</button>
-            <button class="loginbtn"">Log in</button>
+            <button class="loginbtn">Log in</button>
           </div>
         </div>
+
         <div class="spotifyPlaylist">
           <h1>Spotify Playlists</h1>
           <div class="cardContainer">
@@ -123,6 +134,7 @@
               <h2>Happy Hits!</h2>
               <p>Hits to boost your mood and fill you with happiness!</p>
             </div>
+
             <div class="card">
               <img
                 src="https://i.scdn.co/image/ab67616d00001e026fbb60d6a7e03ccb940a518e"
@@ -131,23 +143,21 @@
               <h2>Happy Hits!</h2>
               <p>Hits to boost your mood and fill you with happiness!</p>
             </div>
+          </div>
         </div>
 
         <div class="playbar">
-          <div class="songinfo">
-
-          </div>
+          <div class="songinfo"></div>
           <div class="songbuttons">
-            <img src="previous.svg" alt="">
-            <img src="play.svg" alt="">
-            <img src="next.svg" alt="">
+            <img src="previous.svg" alt="previous" />
+            <img src="play.svg" alt="play" />
+            <img src="next.svg" alt="next" />
           </div>
-          <div class="songtime">
-            
-          </div>
+          <div class="songtime"></div>
         </div>
       </div>
     </div>
+
     <script src="scipt.js"></script>
   </body>
 </html>
