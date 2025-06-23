@@ -5,6 +5,9 @@
   padding: 0;
   font-family: "Roboto", sans-serif;
 }
+.close {
+  display: none;
+}
 body {
   background-color: black;
   color: white;
@@ -74,12 +77,16 @@ body {
 .spotifyPlaylist {
   padding: 15px;
 }
+
+.spotifyPlaylist h1 {
+  padding: 15px;
+}
 .cardContainer {
   margin: 30px;
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
-  overflow-y: scroll;
+  overflow-y: auto;
   max-height: 70vh;
 }
 .card {
@@ -144,6 +151,9 @@ body {
   font-size: 17px;
 }
 .playbar {
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
   position: fixed;
   bottom: 30px;
   filter: invert(1);
@@ -151,7 +161,7 @@ body {
   border-radius: 10px;
   padding: 12px;
   width: 70vw;
-  height: 40px;
+  min-height: 40px;
 }
 .songbuttons {
   display: flex;
@@ -162,6 +172,15 @@ body {
   height: 544px;
   overflow: auto;
   margin-bottom: 44px;
+}
+.hamburger {
+  display: none;
+}
+.hamburgercontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
 }
 .songList ul {
   padding: 0 12px;
@@ -199,7 +218,7 @@ body {
   background-color: black;
   border-radius: 10px;
   position: absolute;
-  bottom: 0;
+  bottom: 8px;
   margin: 6px;
   cursor: pointer;
 }
@@ -224,4 +243,50 @@ body {
 .abovebar {
   display: flex;
   justify-content: space-between;
+  margin: 20px 0;
+}
+
+@media (max-width: 1400px) {
+  .left {
+    background-color: black;
+    position: absolute;
+    left: -120%;
+    transition: all 0.3s;
+    z-index: 1;
+    width: 373px;
+  }
+  .left .close {
+    position: absolute;
+    right: 31px;
+    top: 25px;
+    width: 29px;
+  }
+  .right {
+    margin: 0;
+    width: 100vw;
+  }
+  .playbar {
+    width: calc(100vw - 105px);
+  }
+  .seekbar {
+    width: calc(100vw - 120px);
+  }
+  .hamburger {
+    display: block;
+  }
+  .card {
+    width: 90vw;
+  }
+  .cardContainer {
+    margin: 0;
+    justify-content: center;
+  }
+  .close {
+    display: block;
+  }
+  .abovebar {
+    flex-direction: column;
+    gap: 23px;
+    align-items: center;
+  }
 }
