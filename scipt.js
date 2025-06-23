@@ -21,12 +21,13 @@ async function getSongs() {
 const playMusic = (track, pause = false) => {
   currentSong.src = "/songs/" + track;
   if (!pause) {
-    play.src = "pause.svg";
     currentSong.play();
+    play.src = "pause.svg";
   }
   document.querySelector(".songinfo").innerHTML = decodeURI(track);
   document.querySelector(".songtime").innerHTML = "00:00 /00:00";
 };
+
 async function main() {
   //Returns the list of all the songs
   let songs = await getSongs();
@@ -93,6 +94,15 @@ async function main() {
     document.querySelector(".songtime").innerHTML = `${secondsToMinutesSeconds(
       currentSong.currentTime
     )}/${secondsToMinutesSeconds(currentSong.duration)}`;
+    document.querySelector(".circle").style.left =
+      (currentSong.currentTime / currentSong.duration) * 100 + "%";
+  });
+
+  // Event listener for seekbar
+  document.querySelector(".seekbar").addEventListener("click", (e) => {
+    let percent = (e.offsetX / e.target.getBoundingClientRect().width) * 100;
+    document.querySelector(".circle").style.left = percent + "%";
+    currentSong.currentTime = (currentSong.duration * percent) / 100;
   });
 }
 

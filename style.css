@@ -194,13 +194,14 @@ body {
   padding: 12px;
 }
 .seekbar {
-  height: 2px;
+  height: 4px;
   width: 98%;
   background-color: black;
   border-radius: 10px;
   position: absolute;
   bottom: 0;
   margin: 6px;
+  cursor: pointer;
 }
 .circle {
   width: 13px;
