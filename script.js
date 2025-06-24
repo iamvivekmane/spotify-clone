@@ -1,11 +1,9 @@
-console.log("Hello");
 let currentSong = new Audio();
 let songs;
 
 async function getSongs() {
   let a = await fetch("http://172.20.10.2:3000/songs/");
   let response = await a.text();
-  console.log(response);
 
   let div = document.createElement("div");
   div.innerHTML = response;
@@ -73,7 +71,6 @@ async function main() {
     document.querySelector(".songList").getElementsByTagName("li")
   ).forEach((e) => {
     e.addEventListener("click", (element) => {
-      console.log(e.querySelector(".info").firstElementChild.innerHTML);
       playMusic(e.querySelector(".info").firstElementChild.innerHTML.trim());
     });
   });
@@ -90,7 +87,6 @@ async function main() {
 
   //Listen for time update event
   currentSong.addEventListener("timeupdate", () => {
-    console.log(currentSong.currentTime, currentSong.duration);
     document.querySelector(".songtime").innerHTML = `${secondsToMinutesSeconds(
       currentSong.currentTime
     )} / ${secondsToMinutesSeconds(currentSong.duration)}`;
@@ -128,11 +124,19 @@ async function main() {
     currentSong.pause();
     console.log("next clicked");
     let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0]);
-    console.log(index);
     if (index + 1 < songs.length) {
       playMusic(songs[index + 1]);
     }
   });
+
+  // Event listener for volume
+  document
+    .querySelector(".range")
+    .getElementsByTagName("input")[0]
+    .addEventListener("change", (e) => {
+      console.log("Setting volume to out of 100", e.target.value);
+      currentSong.volume = parseInt(e.target.value) / 100;
+    });
 }
 
 main();
