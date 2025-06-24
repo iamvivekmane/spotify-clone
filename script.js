@@ -1,5 +1,6 @@
 console.log("Hello");
 let currentSong = new Audio();
+let songs;
 
 async function getSongs() {
   let a = await fetch("http://172.20.10.2:3000/songs/");
@@ -30,7 +31,7 @@ const playMusic = (track, pause = false) => {
 
 async function main() {
   //Returns the list of all the songs
-  let songs = await getSongs();
+  songs = await getSongs();
 
   playMusic(songs[0], true);
 
@@ -112,6 +113,25 @@ async function main() {
   // Event listener for close
   document.querySelector(".close").addEventListener("click", () => {
     document.querySelector(".left").style.left = "-120%";
+  });
+
+  // Event listener for previous
+  previous.addEventListener("click", () => {
+    console.log("previous clicked");
+    if (index - 1 >= length) {
+      playMusic(songs[index + 1]);
+    }
+  });
+
+  // Event listener for next
+  next.addEventListener("click", () => {
+    currentSong.pause();
+    console.log("next clicked");
+    let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0]);
+    console.log(index);
+    if (index + 1 < songs.length) {
+      playMusic(songs[index + 1]);
+    }
   });
 }
 
