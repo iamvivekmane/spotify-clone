@@ -18,10 +18,12 @@ async function getSongs(folder) {
       songs.push(element.href.split(`/${folder}/`)[1]);
     }
   }
+
   // Shows all the songs in the playlist
   let songUl = document
     .querySelector(".songList")
     .getElementsByTagName("ul")[0];
+  songUl.innerHTML = "";
   for (const song of songs) {
     songUl.innerHTML =
       songUl.innerHTML +
@@ -57,11 +59,28 @@ const playMusic = (track, pause = false) => {
   document.querySelector(".songtime").innerHTML = "00:00 /00:00";
 };
 
+async function displayAlbums() {
+  let a = await fetch(`http://172.20.10.2:3000/songs/`);
+  let response = await a.text();
+  let div = document.createElement("div");
+  div.innerHTML = response;
+  let anchors = div.getElementsByTagName("a");
+  Array.from(anchors).forEach((e) => {
+    if (e.href.includes("/songs")) {
+      console.log(e.href);
+    }
+  });
+  console.log(anchors);
+}
+
 async function main() {
   //Returns the list of all the songs
   await getSongs("songs/DCH");
 
   playMusic(songs[0], true);
+
+  // Display all albums
+  displayAlbums();
 
   function secondsToMinutesSeconds(seconds) {
     if (isNaN(seconds) || seconds < 0) {
@@ -145,7 +164,7 @@ async function main() {
   Array.from(document.getElementsByClassName("card")).forEach((e) => {
     console.log(e);
     e.addEventListener("click", async (item) => {
-      songs = await getSongs(`songs/${item.currentTarget.dataset.folder})`);
+      songs = await getSongs(`songs/${item.currentTarget.dataset.folder}`);
     });
   });
 }
