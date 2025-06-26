@@ -65,12 +65,51 @@ async function displayAlbums() {
   let div = document.createElement("div");
   div.innerHTML = response;
   let anchors = div.getElementsByTagName("a");
-  Array.from(anchors).forEach((e) => {
+  let cardContainer = document.querySelector(".cardContainer");
+  let array = Array.from(anchors);
+
+  for (let index = 0; index < array.length; index++) {
+    const e = array[index];
+
     if (e.href.includes("/songs")) {
-      console.log(e.href);
+      let folder = e.href.split("/").slice(-2)[0];
+      // Get metadata of the folder
+      let a = await fetch(`http://172.20.10.2:3000/songs/${folder}/info.json`);
+      let response = await a.json();
+      cardContainer.innerHTML =
+        cardContainer.innerHTML +
+        `<div class="card" data-folder="DCH">
+              <div class="play">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="#000"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5 20V4L19 12L5 20Z"
+                    stroke="#141B34"
+                    stroke-width="1.5"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <img
+                src="/songs/${folder}/cover.jpg"
+                alt=""
+              />
+              <h2>${response.title}</h2>
+              <p>${response.description}</p>
+            </div>`;
     }
+  }
+  //Load playlist whenever card is clicked
+  Array.from(document.getElementsByClassName("card")).forEach((e) => {
+    e.addEventListener("click", async (item) => {
+      songs = await getSongs(`songs/${item.currentTarget.dataset.folder}`);
+    });
   });
-  console.log(anchors);
 }
 
 async function main() {
@@ -159,14 +198,6 @@ async function main() {
       console.log("Setting volume to out of 100", e.target.value);
       currentSong.volume = parseInt(e.target.value) / 100;
     });
-
-  //Load playlist whenever card is clicked
-  Array.from(document.getElementsByClassName("card")).forEach((e) => {
-    console.log(e);
-    e.addEventListener("click", async (item) => {
-      songs = await getSongs(`songs/${item.currentTarget.dataset.folder}`);
-    });
-  });
 }
 
 main();
