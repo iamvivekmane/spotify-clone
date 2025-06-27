@@ -5,9 +5,7 @@ let currFolder;
 async function getSongs(folder) {
   currFolder = folder;
   let a = await fetch(`http://172.20.10.2:3000/${folder}/`);
-
   let response = await a.text();
-
   let div = document.createElement("div");
   div.innerHTML = response;
   let as = div.getElementsByTagName("a");
@@ -30,7 +28,7 @@ async function getSongs(folder) {
       `<li>
                 <img class="invert" src="images/music.svg" alt="" />
                 <div class="info">
-                  <div>${song.replaceAll("%20", " ")}</div>
+                  <div>${song.replaceAll("%20", " ").replace(".mp3", " ")}</div>
                   <div>Artist</div>
                 </div>
                 <div class="playnow">
@@ -56,7 +54,10 @@ const playMusic = (track, pause = false) => {
     currentSong.play();
     play.src = "images/pause.svg";
   }
-  document.querySelector(".songinfo").innerHTML = decodeURI(track);
+  document.querySelector(".songinfo").innerHTML = decodeURIComponent(
+    track
+  ).replace(/\.mp3$/i, "");
+
   document.querySelector(".songtime").innerHTML = "00:00 /00:00";
 };
 
@@ -68,12 +69,11 @@ async function displayAlbums() {
   let anchors = div.getElementsByTagName("a");
   let cardContainer = document.querySelector(".cardContainer");
   let array = Array.from(anchors);
-
   for (let index = 0; index < array.length; index++) {
     const e = array[index];
-
     if (e.href.includes("/songs")) {
       let folder = e.href.split("/").slice(-2)[0];
+
       // Get metadata of the folder
       let a = await fetch(`http://172.20.10.2:3000/songs/${folder}/info.json`);
       let response = await a.json();
@@ -116,7 +116,7 @@ async function displayAlbums() {
 
 async function main() {
   //Returns the list of all the songs
-  await getSongs("songs/DCH");
+  await getSongs("songs/Badshah");
 
   playMusic(songs[0], true);
 
@@ -127,13 +127,10 @@ async function main() {
     if (isNaN(seconds) || seconds < 0) {
       return "00:00";
     }
-
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = Math.floor(seconds % 60);
-
     const formattedMinutes = String(minutes).padStart(2, "0");
     const formattedSeconds = String(remainingSeconds).padStart(2, "0");
-
     return `${formattedMinutes}:${formattedSeconds}`;
   }
 
@@ -195,11 +192,15 @@ async function main() {
   // Event listener for volume
   document
     .querySelector(".range")
-    .querySelector(".range")
     .getElementsByTagName("input")[0]
     .addEventListener("change", (e) => {
       console.log("Setting volume to out of 100", e.target.value);
       currentSong.volume = parseInt(e.target.value) / 100;
+      if (currentSong.volume > 0) {
+        document.querySelector(".volume>img").src = document
+          .querySelector(".volume>img")
+          .src.replace("images/mute.svg", "images/volume.svg");
+      }
     });
 
   // Event listener for mute
@@ -225,5 +226,4 @@ async function main() {
     }
   });
 }
-
 main();
