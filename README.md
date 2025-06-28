@@ -16,7 +16,17 @@ A sleek, responsive **Spotify-inspired music player** built using **HTML**, **CS
 
 ## 📸 Preview
 
-![Spotify Clone Screenshot](./assets/preview.jpg)
+- 💻 For Laptop/Desktop
+
+![Spotify Clone Screenshot](./assets/preview1.jpg)
+
+- 📲 For Tablet
+
+![Spotify Clone Screenshot](./assets/preview2.jpg)
+
+- 📱For Mobile Phone
+
+![Spotify Clone Screenshot](./assets/preview3.jpg)
 
 > _Screenshot of the music player interface showing playlists and song controls._
 
