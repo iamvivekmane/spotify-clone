@@ -28,7 +28,7 @@ async function getSongs(folder) {
       `<li>
                 <img class="invert" src="images/music.svg" alt="" />
                 <div class="info">
-                  <div>${song.replaceAll("%20", " ").replace(".mp3", " ")}</div>
+                  <div>${song.replaceAll("%20", " ")}</div>
                   <div>Artist</div>
                 </div>
                 <div class="playnow">
@@ -54,9 +54,7 @@ const playMusic = (track, pause = false) => {
     currentSong.play();
     play.src = "images/pause.svg";
   }
-  document.querySelector(".songinfo").innerHTML = decodeURIComponent(
-    track
-  ).replace(/\.mp3$/i, "");
+  document.querySelector(".songinfo").innerHTML = decodeURI(track);
 
   document.querySelector(".songtime").innerHTML = "00:00 /00:00";
 };
