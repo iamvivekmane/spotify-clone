@@ -39,11 +39,3 @@ A sleek, responsive **Spotify-inspired music player** built using **HTML**, **CS
 - **JavaScript** – Dynamic interaction and song playback
 
 ---
-
-## 🚀 How to Run Locally
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/spotify-clone.git
-   ```
-   > _I am working on deployement of spotify clone ._
